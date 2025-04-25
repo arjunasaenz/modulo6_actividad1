@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile 
+    container_name: web_app
+    ports:
+      - "5600:5600"
+    volumes:
+      - .:/app
+    depends_on:
+      - postgres
+    environment:
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASS=asgb011.
+      - DB_NAME=web_site
+    networks:
+      - web_site_network
+    restart: always
+
+  postgres:
+    image: postgres:12
+    container_name: web_postgres
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: asgb011.
+      POSTGRES_DB: web_site
+    networks:
+      - web_site_network
+    restart: always
+
+networks:
+  web_site_network:
+    driver: bridge
+
+  
+

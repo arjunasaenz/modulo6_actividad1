@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Datos de usuario</title>
+</head>
+<body>
+    <div class="row">
+        <div class="col-md-9">
+        
+            <div class="container">
+                <h3 class="my-3">Datos de usuario</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Correo</th>
+                        </tr>
+                    </thead>
+                    <tbody id="users">
+                        {% for user in users %}
+                        <tr>
+                            <td>{{ user.id }}</td>
+                            <td>{{ user.name }}</td>
+                            <td>{{ user.last_name }}</td>
+                            <td>{{ user.email }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div>
+                    <button type="button" class="btn btn-primary" id="add-user">Agregar usuarios</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="container">
+                <h3 class="my-3">Eliminar usuarios</h3>
+                <label class="form-label" for="id_user">ID Usuario</label>
+                <input type="number" class="form-control" id="id_user">
+                <button type="button" class="btn btn-danger mt-3" id="delete-user">Eliminar usuario</button>
+
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    let add_user = document.getElementById('add-user');
+    add_user.addEventListener('click', () => {
+        add_users()
+    })
+
+    function add_users() {
+        url = '/users'
+        let table = document.querySelector('table')
+        let tbody = table.querySelector('tbody')
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(response => {
+            return response.json()
+        }).then(users => {
+            if (users.message) {
+                alert(users.message)
+                load_users()
+                return
+            }            
+
+        }).catch(error => {
+            console.log(error)
+        })
+    }
+
+    function load_users() {
+        url = '/users'
+        let table = document.querySelector('table')
+        let tbody = table.querySelector('tbody')
+        fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(response => {
+            return response.json()
+        }).then(users => {
+            if (users.message) {
+                alert(users.message)
+                return
+            }
+            tbody.innerHTML = ''
+            users.forEach(user => {
+                let tr = document.createElement('tr')
+                let td_id = document.createElement('td')
+                let td_name = document.createElement('td')
+                let td_lastname = document.createElement('td')
+                let td_email = document.createElement('td')
+                td_id.textContent = user.id
+                td_name.textContent = user.name
+                td_lastname.textContent = user.last_name
+                td_email.textContent = user.email
+                tr.appendChild(td_id)
+                tr.appendChild(td_name)
+                tr.appendChild(td_lastname)
+                tr.appendChild(td_email)
+                tbody.appendChild(tr)
+            })
+        }).catch(error => {
+            console.log(error)
+        })
+    }
+
+    let delete_user = document.getElementById('delete-user')
+    delete_user.addEventListener('click', () => {
+        let id_user = document.getElementById('id_user').value
+        delete_users(id_user)        
+    })
+
+    function delete_users(id_user) {
+        url = '/users/' + id_user
+        fetch(url, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(response => {
+            return response.json()
+        }).then(users => {
+            if (users.message) {
+                alert(users.message)
+                load_users() 
+                document.getElementById('id_user').value = ''               
+                return                
+            }
+            
+        }).catch(error => {
+            console.log(error)
+        })
+    }
+</script>
+</html>
