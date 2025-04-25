@@ -15,6 +15,7 @@
                 <table class="table">
                     <thead>
                         <tr>
+                            <th scope="col">#</th>
                             <th>ID</th>
                             <th>Nombre</th>
                             <th>Apellido</th>
@@ -24,6 +25,7 @@
                     <tbody id="users">
                         {% for user in users %}
                         <tr>
+                            <th scope="row">{{ loop.index }}</th>
                             <td>{{ user.id }}</td>
                             <td>{{ user.name }}</td>
                             <td>{{ user.last_name }}</td>
