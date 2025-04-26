@@ -96,7 +96,9 @@
                 return
             }
             tbody.innerHTML = ''
-            users.forEach(user => {
+            let cont = 1
+            users.forEach(user => {                
+                let td_cont = document.createElement('td')
                 let tr = document.createElement('tr')
                 let td_id = document.createElement('td')
                 let td_name = document.createElement('td')
@@ -106,11 +108,14 @@
                 td_name.textContent = user.name
                 td_lastname.textContent = user.last_name
                 td_email.textContent = user.email
+                td_cont.textContent = cont                
+                tr.appendChild(td_cont)
                 tr.appendChild(td_id)
                 tr.appendChild(td_name)
                 tr.appendChild(td_lastname)
                 tr.appendChild(td_email)
                 tbody.appendChild(tr)
+                cont++
             })
         }).catch(error => {
             console.log(error)
