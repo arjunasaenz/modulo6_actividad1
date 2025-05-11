@@ -6,7 +6,7 @@ WORKDIR /app
 
 COPY requirements.txt .
 
-# Se instalan las dependencias y librerias necesarias
+# Se instalan las dependencias y librerias necesarias.
 RUN pip install --no-cache-dir -r requirements.txt
 
 EXPOSE 5600
