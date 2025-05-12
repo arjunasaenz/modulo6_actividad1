@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# Create a new Flask application
+# Create a new Flask application - carla
 
 class Base(DeclarativeBase):
     pass
