@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile 
     container_name: web_app
     ports:
-      - "5600:5600"
+      - "5700:5700"
     volumes:
       - .:/app
     depends_on:
