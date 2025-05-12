@@ -68,7 +68,7 @@ def create_user():
         db.session.add(user)
         db.session.commit()
         
-    return jsonify({'message': 'Users created successfully!'})
+    return jsonify({'message': 'Usuarios creados satisfactoriamente!'})
 
 
 @app.route('/users/<int:id>', methods=['DELETE'])
@@ -77,9 +77,9 @@ def delete_user(id):
     if user:
         db.session.delete(user)
         db.session.commit()
-        return jsonify({'message': 'User deleted successfully!'})
+        return jsonify({'message': 'Usuario eliminado satisfactoriamente!'})
     else:
-        return jsonify({'message': 'User not found!'}), 404
+        return jsonify({'message': 'Usuario no encontrado!'}), 404
     
     
 @app.route('/users/<int:id>', methods=['PUT'])
