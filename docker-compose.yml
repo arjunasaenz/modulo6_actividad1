@@ -38,7 +38,3 @@ services:
 networks:
   web_site_network:
     driver: bridge
-
-  
-
-# Mauricio Alvarez Madrigal

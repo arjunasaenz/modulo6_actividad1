@@ -25,7 +25,3 @@ ENTRYPOINT [ "python" ]
 
 # Se ejecuta el comando para iniciar la aplicacion
 CMD [ "./app.py" ]
-
-
-# Mauricio Alvarez Madrigal
-
